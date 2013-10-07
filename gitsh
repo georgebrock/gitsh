@@ -109,7 +109,11 @@ def git_status():
     if re.search("Not a git repository", status):
         return ('uninitialized', 'uninitialized')
 
-    branch = re.search("On branch (.*)", status).group(1)
+    branch = re.search("On branch (.*)", status)
+    if branch:
+        branch = branch.group(1)
+    else:
+        branch = '-'
 
     if re.search("working directory clean", status):
         return (branch, 'clean')
